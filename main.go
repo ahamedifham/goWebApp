@@ -32,6 +32,26 @@ func main(){
 
 	log.Println(user.Birthdate)
 	log.Println(user2.printFirstName())
+
+	myMap := make(map[string]string)
+	myMap["dog"] = user.printFirstName()
+	log.Println(myMap["dog"])
+
+	var mySlice []string
+	log.Println("mySlice before appending", &mySlice)
+
+	mySlice = append(mySlice, "ai")
+
+	log.Println("mySlice after first appending", &mySlice)
+	mySlice2 := append(mySlice, "hj")
+
+	log.Println(mySlice[len(mySlice)-1])
+	log.Println(mySlice2)
+
+
+	numbers := []int{1,2,4,5,12,58,79}
+	log.Println(numbers)
+	log.Println(numbers[3:len(numbers)])
 }
 
 func saySomething(s string) (string, string){
