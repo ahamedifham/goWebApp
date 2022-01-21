@@ -67,6 +67,31 @@ func main(){
 	if cat == "cat" {
 		log.Println("cat is ", cat)
 	}
+
+	for i :=0; i < 10; i++{
+		log.Print(i)
+	}
+
+	animals := []string{"dog", "fish", "horse", "cow"}
+
+	for _, animal := range animals {
+		log.Println(animal)
+	}
+
+	houses := make(map[string]string)
+	houses["one"] = "home"
+	houses["two"] = "kalubowila"
+
+	for houseKey,house := range houses {
+		log.Println(houseKey, house)
+	}
+
+	var firstLine string = "Once upon a midnight"
+
+	for _, letter := range firstLine{
+		log.Println(letter)
+	}
+
 }
 
 func saySomething(s string) (string, string){
