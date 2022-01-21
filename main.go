@@ -1,8 +1,12 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"time"
+
+	helpers "github.com/ahamedi/myniceprogram/helper"
 )
 
 var s = "seven"
@@ -29,6 +33,11 @@ type User struct {
 	PhoneNumber string 
 	Age int 
 	Birthdate time.Time
+}
+
+type Person struct{
+	FirstName string `json:"first_name"`
+	LastName string `json:"last_name"`
 }
 
 func (u *User) printFirstName() string {
@@ -110,8 +119,62 @@ func main(){
 
 	dog := Dog{"Samson", "GermanShepeherd"}
 
-	PrintInfo(dog)
+	PrintInfo(&dog)
 
+	intChan := make(chan int)
+	defer close(intChan)
+
+	go CalculateValue(intChan)
+
+	num := <-intChan
+	log.Println(num)
+
+	myJson := `
+	[
+		{
+			"first_name":"Ahamed",
+			"last_name":"Ifham"
+		},
+		{
+			"first_name":"Ian",
+			"last_name":"Bell"
+		}
+
+	]`
+
+	var unmarshled []Person
+
+	err := json.Unmarshal([]byte(myJson), unmarshled)
+
+	if err != nil {
+		log.Println("Error unmarshalling json", err)
+	}
+
+	log.Printf("unmarshelled: %v", unmarshled)
+
+	var persons []Person
+
+	m1 := Person{"Ahamed", "Ifham"}
+	m2 := Person{"John", "Cat"}
+
+
+	persons = append(persons, m1)
+	persons = append(persons, m2)
+
+	newJson, err := json.MarshalIndent(persons, "", " ")
+
+	if err != nil {
+		log.Println("Error marshalling", err)
+	}
+
+	fmt.Print(string(newJson))
+
+
+}
+
+func CalculateValue(intchan chan int){
+	randomNumber := helpers.RandomNumber(10)
+	intchan <- randomNumber
 }
 
 func saySomething(s string) (string, string){
@@ -119,11 +182,11 @@ func saySomething(s string) (string, string){
 	return s,"Word"
 }
 
-func (d Dog) Says() string{
+func (d *Dog) Says() string{
 	return "Woof My Name is "  + d.Name
 }
 
-func (d Dog) NumberOfLegs() int {
+func (d *Dog) NumberOfLegs() int {
 	return 4
 }
 
