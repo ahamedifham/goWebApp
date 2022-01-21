@@ -7,6 +7,22 @@ import (
 
 var s = "seven"
 
+type Animal interface {
+	Says() string
+	NumberOfLegs() int
+}
+
+type Dog struct {
+	Name string
+	Breed string
+}
+
+type Gorilla struct {
+	Name string
+	Color string
+	NumberOfTeeth int
+}
+
 type User struct {
 	FirstName string
 	LastName string
@@ -92,9 +108,25 @@ func main(){
 		log.Println(letter)
 	}
 
+	dog := Dog{"Samson", "GermanShepeherd"}
+
+	PrintInfo(dog)
+
 }
 
 func saySomething(s string) (string, string){
 	log.Println("s from the saySomething is ", s)
 	return s,"Word"
+}
+
+func (d Dog) Says() string{
+	return "Woof My Name is "  + d.Name
+}
+
+func (d Dog) NumberOfLegs() int {
+	return 4
+}
+
+func PrintInfo(a Animal){
+	log.Println("This animal says", a.Says() , "and has", a.NumberOfLegs(), "legs")
 }
