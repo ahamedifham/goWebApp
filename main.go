@@ -52,6 +52,21 @@ func main(){
 	numbers := []int{1,2,4,5,12,58,79}
 	log.Println(numbers)
 	log.Println(numbers[3:len(numbers)])
+
+	var isTrue bool
+	isTrue = true
+
+	if isTrue {
+		log.Println("isTrue")
+	} else {
+		log.Println("Is not true")
+	}
+
+	cat := "cat"
+
+	if cat == "cat" {
+		log.Println("cat is ", cat)
+	}
 }
 
 func saySomething(s string) (string, string){
