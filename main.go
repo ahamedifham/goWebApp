@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"time"
@@ -169,6 +170,15 @@ func main(){
 
 	fmt.Print(string(newJson))
 
+	result, error := divide(100.00, 10.00)
+
+	if error != nil {
+		log.Println(error)
+		return
+	}
+
+	log.Println(result)
+
 
 }
 
@@ -192,4 +202,15 @@ func (d *Dog) NumberOfLegs() int {
 
 func PrintInfo(a Animal){
 	log.Println("This animal says", a.Says() , "and has", a.NumberOfLegs(), "legs")
+}
+
+func divide(x, y float32) (float32, error) {
+	var result float32
+
+	if y==0 {
+		return result, errors.New("cannot divide by 0")
+	}
+
+	result = x/y
+	return result, nil
 }
